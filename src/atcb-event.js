@@ -31,7 +31,14 @@ function atcb_log_event(event, trigger, identifier) {
   }
   // trigger push to data layer
   if (atcbIsBrowser()) {
-    atcb_push_to_data_layer(event, trigger);
+    // atcb_push_to_data_layer(event, trigger);
+
+    // Dispatch custom event.
+    window.dispatchEvent(
+      new CustomEvent('addToCalendarButtonEvent', {
+        detail: {event, trigger, identifier}
+      })
+    )
   }
 }
 
@@ -62,13 +69,13 @@ function atcb_push_to_data_layer(event, trigger) {
       action = 'Saved';
       break;
   }
-  const atcbDataLayer = (window.dataLayer = window.dataLayer || []);
-  atcbDataLayer.push({
-    eventCategory: 'Add-to-Calendar-Button',
-    eventAction: action,
-    eventLabel: trigger,
-    event: event,
-  });
+  // const atcbDataLayer = (window.dataLayer = window.dataLayer || []);
+  // atcbDataLayer.push({
+  //   eventCategory: 'Add-to-Calendar-Button',
+  //   eventAction: action,
+  //   eventLabel: trigger,
+  //   event: event,
+  // });
 }
 
 export { atcb_log_event };
